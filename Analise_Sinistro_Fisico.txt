@@ -1,0 +1,19 @@
+create database analise_de_sinistro;
+
+
+create table Funcionario ( matricula int primary key auto_increment, nome varchar(80) not null, cpf char(14) not null unique, nascimento date not null, email varchar(80) unique, endereco varchar(150), estado_civil varchar(10) );
+create table Sinistro ( id_sinistro int primary key auto_increment, data date, localizacao varchar(100), horario time, envolvidos varchar(200) not null, descricao_do_ocorrido varchar(2000) not null, danos varchar(800) not null, identificacao_das_vitimas varchar(1500) );
+create table Resolve ( id_resolve int primary key auto_increment, fk_Sinistro_id_sinistro int not null, fk_Funcionario_matricula int not null );
+
+
+alter table resolve add constraint fksin foreign key (fk_Sinistro_id_sinistro) references sinistro (id_sinistro);
+alter table resolve add constraint fkmat foreign key (fk_Funcionario_matricula) references funcionario (matricula);
+
+
+insert into funcionario values ( 3001, 'Godofredo Henrique', '123.456.789-01', '1945-08-06', 'gh@gmail.com', 'Estrada Pau-Ferro', 'Casado' );
+
+
+insert into sinistro values ( 2023010, '2023-09-20', null, null, 'Empresa Petrolifera', 'Ventos fortes a mais de 150km/h', 'Quebra de aparelhos', 'Roberto Carlos, Godofreda Henrica, Elves Presley' );
+
+
+insert into resolve values ( 251, 2023010, 3001 );
